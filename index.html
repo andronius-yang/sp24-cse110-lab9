@@ -133,6 +133,15 @@
 
     errorBtns[0].addEventListener('click', () => {
       console.log('This is a console log message.');
+      try {
+        nonExistentElement.addEventListener('click', () => {
+          console.log("Shouldn't happen!");
+        });
+      } catch (error) {
+        console.log("try/catch/finally demo caught an error: ", error.message);
+      } finally {
+        console.log("try/catch/finally demo complete");
+      }
     });
 
     errorBtns[1].addEventListener('click', () => {
@@ -191,15 +200,9 @@
 
     errorBtns[14].addEventListener('click', () => {
       let nonExistentElement = document.getElementById("DNE");
-      try {
-        nonExistentElement.addEventListener('click', () => {
+      nonExistentElement.addEventListener('click', () => {
           console.log("Shouldn't happen!");
-        });
-      } catch (error) {
-        console.log("Caught an error: ", error.message);
-      } finally {
-        console.log("try/catch/finally demo complete");
-      }
+      });
     });
   </script>
 </body>
