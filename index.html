@@ -87,7 +87,26 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+    window.TrackJS && TrackJS.install({
+      token: "283df6704318405f864634f516cbb270"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+  <script>
+    class TypeError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "TypeError";
+      }
+    }
+    class ArithmeticError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "ArithmeticError";
+      }
+    }
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -95,6 +114,15 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
+      if (isNaN(firstNum)) {
+        throw new TypeError("First number is not a number.");
+      }
+      if (isNaN(secondNum)) {
+        throw new TypeError("Second number is not a number.");
+      }
+      if (operator == '/' && Number(secondNum) == 0) {
+        throw new ArithmeticError("Cannot divide by 0!");
+      }
       output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
     });
 
@@ -102,6 +130,77 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    errorBtns[0].addEventListener('click', () => {
+      console.log('This is a console log message.');
+    });
+
+    errorBtns[1].addEventListener('click', () => {
+      console.error('This is a console error message.');
+    });
+
+    errorBtns[2].addEventListener('click', () => {
+      console.count('Count');
+    });
+
+    errorBtns[3].addEventListener('click', () => {
+      console.warn('This is a console warn message.');
+    });
+
+    errorBtns[4].addEventListener('click', () => {
+      console.assert(false, 'This is a console assert message.');
+    });
+
+    errorBtns[5].addEventListener('click', () => {
+      console.clear();
+    });
+
+    errorBtns[6].addEventListener('click', () => {
+      console.dir(document.body);
+    });
+
+    errorBtns[7].addEventListener('click', () => {
+      console.dirxml(document);
+    });
+
+    errorBtns[8].addEventListener('click', () => {
+      console.group('Grouped messages');
+      console.log('Message 1');
+      console.log('Message 2');
+    });
+
+    errorBtns[9].addEventListener('click', () => {
+      console.groupEnd();
+    });
+
+    errorBtns[10].addEventListener('click', () => {
+      console.table([{ major: 'Computer Science', headcount: 30 }, { major: 'Computer Engineering', headcount: 25 }]);
+    });
+
+    errorBtns[11].addEventListener('click', () => {
+      console.time('Timer');
+    });
+
+    errorBtns[12].addEventListener('click', () => {
+      console.timeEnd('Timer');
+    });
+
+    errorBtns[13].addEventListener('click', () => {
+      console.trace('This is a console trace message.');
+    });
+
+    errorBtns[14].addEventListener('click', () => {
+      let nonExistentElement = document.getElementById("DNE");
+      try {
+        nonExistentElement.addEventListener('click', () => {
+          console.log("Shouldn't happen!");
+        });
+      } catch (error) {
+        console.log("Caught an error: ", error.message);
+      } finally {
+        console.log("try/catch/finally demo complete");
+      }
+    });
   </script>
 </body>
 
