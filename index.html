@@ -204,6 +204,10 @@
           console.log("Shouldn't happen!");
       });
     });
+
+    window.addEventListener('error', () => {
+      console.log("Unfortunately an error has been caught my friend...");
+    });
   </script>
 </body>
 
